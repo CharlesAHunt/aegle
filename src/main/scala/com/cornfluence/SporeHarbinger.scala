@@ -23,10 +23,9 @@ object SporeHarbinger {
 
       implicit val sc = new SparkContext(sparkConf)
 
-      val data = Array("", "", "", "", "")
-      val stream = sc.parallelize(data)
+      val data = sc.textFile("hdfs://52.24.232.41:9000/user/hadoop/up3.csv")
 
-      implicit val lines : RDD[HealthData] = stream.map(Parser.logParser)
+      implicit val lines : RDD[HealthData] = data.map(Parser.logParser)
 
       spores.foreach(_.run)
    }

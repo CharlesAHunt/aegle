@@ -21,9 +21,10 @@ object Dependencies {
    def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
    def test(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "test")
 
-   val spark_streaming = "org.apache.spark" %% "spark-streaming" % "1.3.1"
-   val spark_core = "org.apache.spark" %% "spark-core" % "1.3.1"
-   val spark_mlib =  "org.apache.spark" %% "spark-mllib" % "1.3.1"
+   val sparkVersion = "1.4.0"
+   val spark_streaming = "org.apache.spark" %% "spark-streaming" % sparkVersion
+   val spark_core = "org.apache.spark" %% "spark-core" % sparkVersion
+   val spark_mlib =  "org.apache.spark" %% "spark-mllib" % sparkVersion
    val hadoop_client = "org.apache.hadoop" % "hadoop-client" % "2.6.0"
    val json4sNative = "org.json4s" %% "json4s-native" % "3.2.11"
    val json4sJackson = "org.json4s" %% "json4s-jackson" % "3.2.11"

@@ -1,8 +1,8 @@
 package com.cornfluence
 
 import org.apache.spark.SparkContext
-import org.apache.spark.streaming.dstream.DStream
+import org.apache.spark.rdd.RDD
 
 trait Spore {
-   def run(implicit stream : DStream[HealthData], ssc : SparkContext)
+   def run(implicit stream : RDD[HealthData], ssc : SparkContext)
 }
