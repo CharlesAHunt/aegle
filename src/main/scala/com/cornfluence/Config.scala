@@ -1,5 +1,7 @@
 package com.cornfluence
 
+import scala.util.Try
+
 object SparkConfig {
    val conf = new SparkConfig("")
 }
@@ -7,13 +9,13 @@ object SparkConfig {
 class SparkConfig(environment: String = "") {
    val rootConfig = new AegleConfig().rootConfig
    val appName = "Aegle"
-   val checkpointDir = rootConfig.getString(Config.checkpointDir)
+   val checkpointDir = Try(rootConfig.getString(Config.checkpointDir)).toOption
    val spores = rootConfig.getStringList(Config.spores)
-   val sparkMaster = rootConfig.getString(Config.sparkMaster)
-   val isClustered = rootConfig.getBoolean(Config.isClustered)
-   val influxHost = rootConfig.getString(Config.influxHost)
-   val influxPort = rootConfig.getString(Config.influxPort)
-   val influxSchema = rootConfig.getString(Config.influxSchema)
+   val sparkMaster = Try(rootConfig.getString(Config.sparkMaster)).toOption
+   val isClustered = Try(rootConfig.getBoolean(Config.isClustered)).toOption
+   val influxHost = Try(rootConfig.getString(Config.influxHost)).toOption
+   val influxPort = Try(rootConfig.getString(Config.influxPort)).toOption
+   val influxSchema = Try(rootConfig.getString(Config.influxSchema)).toOption
 }
 
 object Config {
@@ -30,5 +32,5 @@ object Config {
 import com.typesafe.config.ConfigFactory
 
 class AegleConfig() {
-   lazy val rootConfig = ConfigFactory.load("spark").withFallback(ConfigFactory.load())
+   lazy val rootConfig = ConfigFactory.load("aegle").withFallback(ConfigFactory.load())
 }

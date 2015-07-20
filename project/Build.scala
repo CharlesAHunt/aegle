@@ -67,6 +67,7 @@ object SparkBuild extends Build {
                 case meta if meta.contains("com") => MergeStrategy.last
                 case meta if meta.contains("org") => MergeStrategy.last
                 case meta if meta.contains("akka") => MergeStrategy.last
+                case meta if meta.contains("javax") => MergeStrategy.last
                 case x => old(x)
             }},
             assemblyOption in assembly ~= { _.copy(includeScala = false) },
@@ -77,5 +78,4 @@ object SparkBuild extends Build {
                compile(spark_core,spark_mlib,spark_streaming,json4sNative, json4sJackson,joda,hadoop_client,dispatch)
          )
    )
-
 }
