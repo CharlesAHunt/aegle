@@ -3,6 +3,7 @@ package com.cornfluence
 case class HealthData(
                      date : Option[String],
                      age : Option[String],
+                     avg_bg : Option[String],
                      bmr : Option[String],
                      body_fat : Option[String],
                      e_caffeine : Option[String],
@@ -46,6 +47,8 @@ case class HealthData(
                      m_total_calories : Option[String],
                      m_workout_count : Option[String],
                      m_workout_time : Option[String],
+                     max_bg : Option[String],
+                     min_bg : Option[String],
                      n_asleep_time : Option[String],
                      n_awake : Option[String],
                      n_awake_time : Option[String],

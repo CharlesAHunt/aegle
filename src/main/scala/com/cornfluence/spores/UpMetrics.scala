@@ -11,7 +11,9 @@ class UpMetrics extends Spore with Serializable {
    def run(implicit stream : RDD[HealthData], ssc : SparkContext) = {
       val data = stream.cache()
          data.foreach { data =>
-            println(data)
+
+
+
          }
    }
 }
