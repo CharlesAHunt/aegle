@@ -21,7 +21,7 @@ object Dependencies {
    def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
    def test(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "test")
 
-   val sparkVersion = "1.4.0"
+   val sparkVersion = "1.6.1"
    val spark_streaming = "org.apache.spark" %% "spark-streaming" % sparkVersion
    val spark_core = "org.apache.spark" %% "spark-core" % sparkVersion
    val spark_mlib =  "org.apache.spark" %% "spark-mllib" % sparkVersion
@@ -30,6 +30,8 @@ object Dependencies {
    val json4sJackson = "org.json4s" %% "json4s-jackson" % "3.2.11"
    val joda = "joda-time" % "joda-time" % "2.7"
    val dispatch = "net.databinder.dispatch" %% "dispatch-core" % "0.11.2"
+   val bioJavaCore = "org.biojava" % "biojava-core" % "4.2.1"
+   val bioJavaStructure = "org.biojava" % "biojava-structure" % "4.2.1"
 }
 
 object BuildSettings {
@@ -64,10 +66,10 @@ object SparkBuild extends Build {
          Seq(
             mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
             {
-                case meta if meta.contains("com") => MergeStrategy.last
-                case meta if meta.contains("org") => MergeStrategy.last
-                case meta if meta.contains("akka") => MergeStrategy.last
-                case meta if meta.contains("javax") => MergeStrategy.last
+                case meta if meta.contains("com") => MergeStrategy.first
+                case meta if meta.contains("org") => MergeStrategy.first
+                case meta if meta.contains("akka") => MergeStrategy.first
+                case meta if meta.contains("javax") => MergeStrategy.first
                 case x => old(x)
             }},
             assemblyOption in assembly ~= { _.copy(includeScala = false) },
@@ -75,7 +77,7 @@ object SparkBuild extends Build {
             publishArtifact in packageDoc := false,
             publishArtifact in Test := false,
             libraryDependencies ++=
-               compile(spark_core,spark_mlib,spark_streaming,json4sNative, json4sJackson,joda,hadoop_client,dispatch)
+               compile(spark_core,spark_mlib,spark_streaming,json4sNative,json4sJackson,joda,hadoop_client,dispatch,bioJavaCore,bioJavaStructure)
          )
    )
 }

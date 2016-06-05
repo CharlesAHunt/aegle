@@ -3,12 +3,12 @@ package com.cornfluence
 import scala.util.Try
 
 object SparkConfig {
+   val appName = "Aegle"
    val conf = new SparkConfig("")
 }
 
 class SparkConfig(environment: String = "") {
    val rootConfig = new AegleConfig().rootConfig
-   val appName = "Aegle"
    val checkpointDir = Try(rootConfig.getString(Config.checkpointDir)).toOption
    val spores = rootConfig.getStringList(Config.spores)
    val sparkMaster = Try(rootConfig.getString(Config.sparkMaster)).toOption
